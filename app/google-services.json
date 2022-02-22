@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "3198120142",
+    "project_id": "wojak-memes-realm",
+    "storage_bucket": "wojak-memes-realm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3198120142:android:1a66e5eaae092e2792a09f",
+        "android_client_info": {
+          "package_name": "fr.stks.wojakmemesrealm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3198120142-h14rmp80g06spduken703mtbl392cocc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8k728-okM4FAVnFL6FKgUJiCgHfg5wSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3198120142-h14rmp80g06spduken703mtbl392cocc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
