@@ -20,11 +20,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/add" />
+                    android:text="Wojak Memes Realm"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
