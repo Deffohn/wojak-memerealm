@@ -27,7 +27,7 @@
                     android:text="Wojak Memes Realm"
                     android:textSize="16dp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
