@@ -38,13 +38,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun createAccount() {
         val fullName = binding.fullnameSignup.text.toString()
         val username = binding.usernameSignup.text.toString()
-        val mail = binding.mailSignup.text.toString()
+        val email = binding.emailSignup.text.toString()
         val password = binding.passwordSignup.text.toString()
 
         when {
             TextUtils.isEmpty(fullName) -> Toast.makeText(this, "Full name is required!", Toast.LENGTH_LONG).show()
             TextUtils.isEmpty(username) -> Toast.makeText(this, "Username is required!", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(mail) -> Toast.makeText(this, "Mail is required!", Toast.LENGTH_LONG).show()
+            TextUtils.isEmpty(email) -> Toast.makeText(this, "Email is required!", Toast.LENGTH_LONG).show()
             TextUtils.isEmpty(password) -> Toast.makeText(this, "Password is required!", Toast.LENGTH_LONG).show()
 
             else -> {
@@ -57,9 +57,9 @@ class SignUpActivity : AppCompatActivity() {
                 }
 
                 val fAuth = FirebaseAuth.getInstance()
-                fAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener { task ->
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        saveUserInfo(fullName, username, mail, progressDialog)
+                        saveUserInfo(fullName, username, email, progressDialog)
                     } else {
                         val error = task.exception.toString()
                         Toast.makeText(this, "Error: $error.", Toast.LENGTH_LONG).show()
@@ -71,7 +71,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveUserInfo(fullName: String, username: String, mail: String, progressDialog: ProgressDialog) {
+    private fun saveUserInfo(fullName: String, username: String, email: String, progressDialog: ProgressDialog) {
         val fAuth = FirebaseAuth.getInstance()
         val dbUsers = FirebaseDatabase.getInstance().reference.child("Users")
 
@@ -80,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
             put("uid", uid)
             put("fullname", fullName)
             put("username", username)
-            put("mail", mail)
+            put("email", email)
             put("image", "https://firebasestorage.googleapis.com/v0/b/wojak-memes-realm.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e8d07ce3-99a4-4b3c-bd63-1037511ee086")
             put("bio", "")
         }).addOnCompleteListener { task ->

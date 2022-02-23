@@ -18,7 +18,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/mail_login"
+        android:id="@+id/email_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
@@ -28,13 +28,13 @@
         android:padding="10dp"
         android:inputType="textEmailAddress"
         android:background="@drawable/inputs_background"
-        android:hint="Mail..." />
+        android:hint="Email..." />
 
     <EditText
         android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mail_login"
+        android:layout_below="@+id/email_login"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="6dp"
