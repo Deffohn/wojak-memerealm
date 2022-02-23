@@ -13,7 +13,6 @@ import fr.stks.wojakmemesrealm.fragments.SearchFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
@@ -52,9 +51,10 @@ class MainActivity : AppCompatActivity() {
         moveToFragment(HomeFragment())
     }
 
-    private fun moveToFragment(fragment: Fragment){
-        val fragmentTrans = supportFragmentManager.beginTransaction()
-        fragmentTrans.replace(R.id.fragment_container, fragment)
-        fragmentTrans.commit()
+    private fun moveToFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, fragment)
+            commit()
+        }
     }
 }
