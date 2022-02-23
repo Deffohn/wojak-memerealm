@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "3198120142",
+    "firebase_url": "https://wojak-memes-realm-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "wojak-memes-realm",
     "storage_bucket": "wojak-memes-realm.appspot.com"
   },
