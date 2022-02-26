@@ -1,7 +1,7 @@
 package fr.stks.wojakmemesrealm.model
 
 class User {
-    
+
     constructor()
 
     private var username: String = ""
