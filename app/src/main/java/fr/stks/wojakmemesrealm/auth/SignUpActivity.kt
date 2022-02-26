@@ -78,8 +78,8 @@ class SignUpActivity : AppCompatActivity() {
         val uid = fAuth.currentUser!!.uid
         dbUsers.child(uid).setValue(HashMap<String, Any>().apply {
             put("uid", uid)
-            put("fullname", fullName)
-            put("username", username)
+            put("fullname", fullName.lowercase())
+            put("username", username.lowercase())
             put("email", email)
             put("image", "https://firebasestorage.googleapis.com/v0/b/wojak-memes-realm.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=e8d07ce3-99a4-4b3c-bd63-1037511ee086")
             put("bio", "")
