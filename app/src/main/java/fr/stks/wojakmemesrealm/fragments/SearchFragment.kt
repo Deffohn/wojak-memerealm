@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.TestLooperManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +90,7 @@ class SearchFragment : Fragment() {
                     val user = snapshot.getValue(User::class.java)
                     if (user != null){
                         mUser?.add(user)
+                        Log.d("SearchFragment", user.getUid().toString())
                     }
                 }
 

@@ -1,5 +1,7 @@
 package fr.stks.wojakmemesrealm.model
 
+import android.util.Log
+
 class User {
 
     constructor()
@@ -19,7 +21,7 @@ class User {
     }
 
     fun getUsername(): String{
-        return username
+        return this.username
     }
 
     fun setUsername(username: String){
@@ -27,7 +29,7 @@ class User {
     }
 
     fun getFullname(): String{
-        return fullname
+        return this.fullname
     }
 
     fun setFullname(fullname: String){
@@ -35,7 +37,7 @@ class User {
     }
 
     fun getBio(): String{
-        return bio
+        return this.bio
     }
 
     fun setBio(bio: String){
@@ -43,7 +45,7 @@ class User {
     }
 
     fun getImage(): String{
-        return image
+        return this.image
     }
 
     fun setImage(image: String){
@@ -51,10 +53,11 @@ class User {
     }
 
     fun getUid(): String{
-        return uid
+        Log.d("Debug User", this.uid+" ")
+        return this.uid
     }
 
-    fun setUid(username: String){
+    fun setUid(uid: String){
         this.uid = uid
     }
 
