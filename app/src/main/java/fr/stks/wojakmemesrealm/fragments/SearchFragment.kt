@@ -90,7 +90,6 @@ class SearchFragment : Fragment() {
                     val user = snapshot.getValue(User::class.java)
                     if (user != null){
                         mUser?.add(user)
-                        Log.d("SearchFragment", user.getUid().toString())
                     }
                 }
 

@@ -42,8 +42,6 @@ class UserAdapter (private var mContext: Context, private var mUser: List<User>,
 
         holder.followButton.setOnClickListener {
             if (holder.followButton.text.toString() == "Follow"){
-                Log.d("debug", user.getUid().toString()+" test "+user.getFullname().toString())
-                Log.d("debug", "test")
                 firebaseUser?.uid.let { it1 ->
                     FirebaseDatabase.getInstance().reference
                         .child("Follow").child(it1.toString())

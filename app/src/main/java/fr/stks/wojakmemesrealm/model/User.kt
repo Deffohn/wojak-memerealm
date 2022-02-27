@@ -53,7 +53,6 @@ class User {
     }
 
     fun getUid(): String{
-        Log.d("Debug User", this.uid+" ")
         return this.uid
     }
 
