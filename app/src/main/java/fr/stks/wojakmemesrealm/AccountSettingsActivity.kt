@@ -51,6 +51,8 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.editImageBtn.setOnClickListener {
+            checker = "clicked"
+
             CropImage.activity().apply {
                 setAspectRatio(1, 1)
                 start(this@AccountSettingsActivity)
