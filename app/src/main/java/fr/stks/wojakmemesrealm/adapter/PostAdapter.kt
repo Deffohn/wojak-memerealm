@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -21,12 +20,12 @@ import fr.stks.wojakmemesrealm.R
 import fr.stks.wojakmemesrealm.model.Post
 import fr.stks.wojakmemesrealm.model.User
 
-class PostAdapter(private val mContext: Context, private val mPost: List<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(private val mContext: Context, var mPost: List<Post>) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     private var firebaseUser: FirebaseUser? = null
 
     inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView){
-        var profileImage: CircleImageView
+        //var profileImage: CircleImageView
         var postImage: ImageView
         var likeButton: ImageView
         var commentButton: ImageView
@@ -36,9 +35,9 @@ class PostAdapter(private val mContext: Context, private val mPost: List<Post>) 
         var publisher: TextView
         var description: TextView
         var comments: TextView
+            val profileImage: CircleImageView = itemView.findViewById(R.id.user_profile_image_post)
 
         init {
-            profileImage = itemView.findViewById(R.id.user_profile_image_post)
             postImage = itemView.findViewById(R.id.post_image_home)
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
@@ -61,10 +60,10 @@ class PostAdapter(private val mContext: Context, private val mPost: List<Post>) 
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
         val post = mPost[position]
+        val image = if(post.postimage.isNotEmpty()) post.postimage else null
+        Picasso.get().load(image).into(holder.postImage)
 
-        Picasso.get().load(post.getPostimage()).into(holder.postImage)
-
-        publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.getPublisher())
+        publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.publisher)
     }
 
     private fun publisherInfo(profileImage: CircleImageView, userName: TextView, publisher: TextView, publisherID: String) {
@@ -73,11 +72,11 @@ class PostAdapter(private val mContext: Context, private val mPost: List<Post>) 
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()){
-                    val user = dataSnapshot.getValue<User>(User::class.java)
-
-                    Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(profileImage)
-                    userName.text = user!!.getUsername()
-                    publisher.text = user!!.getFullname()
+                     dataSnapshot.getValue(User::class.java)?.apply {
+                        userName.text = this.getUsername()
+                        publisher.text = this.getFullname()
+                        Picasso.get().load(this.getImage()).placeholder(R.drawable.profile).into(profileImage)
+                    }
                 }
             }
 

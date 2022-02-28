@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import fr.stks.wojakmemesrealm.adapter.PostAdapter
 import fr.stks.wojakmemesrealm.databinding.FragmentHomeBinding
 import fr.stks.wojakmemesrealm.model.Post
@@ -19,7 +20,6 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private var postAdapter: PostAdapter? = null
-    private var postList: MutableList<Post>? = null
     private var followingList: MutableList<Post>? = null
 
     override fun onCreateView(
@@ -33,8 +33,7 @@ class HomeFragment : Fragment() {
             stackFromEnd = true
         }
 
-        postList = ArrayList()
-        postAdapter = context?.let { PostAdapter(it, postList as ArrayList<Post>) }
+        postAdapter = context?.let { PostAdapter(it, arrayListOf()) }
         binding.recyclerViewHome.adapter = postAdapter
 
         checkFollowings()
@@ -71,17 +70,23 @@ class HomeFragment : Fragment() {
 
         postsRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                postList?.clear()
+                val postList = arrayListOf<Post>()
 
-                for (s in snapshot.children) {
-                    val post = snapshot.getValue(Post::class.java)
+                //for (s in snapshot.children) {
+                    val postObjet = snapshot.getValue<Map<String,Post>>()
 
-                    for (id in (followingList as ArrayList<String>)) {
-                        if (post!!.getPublisher() == id)
-                            postList!!.add(post)
+                    postObjet?.values?.forEach {
+                        postList.add(it)
                     }
+                    //for (id in (followingList as ArrayList<String>)) {
+                        //if (post!!.values.firstOrNull() == id)
 
-                    postAdapter!!.notifyDataSetChanged()
+
+                    //}
+                //}
+                binding.recyclerViewHome.adapter?.let {
+                    (it as PostAdapter).mPost = postList
+                    it.notifyDataSetChanged()
                 }
             }
 
