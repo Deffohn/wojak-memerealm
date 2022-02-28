@@ -54,7 +54,43 @@ class ProfileFragment : Fragment() {
         }
 
         binding.editAccountSettingsBtn.setOnClickListener {
-            startActivity(Intent(context, AccountSettingsActivity::class.java))
+            val getButtonText = binding.editAccountSettingsBtn.text.toString()
+
+            when{
+                getButtonText == "Edit Profile" -> startActivity(Intent(context, AccountSettingsActivity::class.java))
+
+                getButtonText == "Follow" -> {
+                    firebaseUser?.uid.let { it1 ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow").child(it1.toString())
+                            .child("Following").child(profileId)
+                            .setValue(true)
+                    }
+
+                    firebaseUser?.uid.let { it1 ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow").child(profileId)
+                            .child("Followers").child(it1.toString())
+                            .setValue(true)
+                    }
+                }
+
+                getButtonText == "Following" -> {
+                    firebaseUser?.uid.let { it1 ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow").child(it1.toString())
+                            .child("Following").child(profileId)
+                            .removeValue()
+                    }
+
+                    firebaseUser?.uid.let { it1 ->
+                        FirebaseDatabase.getInstance().reference
+                            .child("Follow").child(profileId)
+                            .child("Followers").child(it1.toString())
+                            .removeValue()
+                    }
+                }
+            }
         }
 
         getFollowers()

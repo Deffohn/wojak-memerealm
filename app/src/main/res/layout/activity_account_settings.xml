@@ -36,8 +36,8 @@
                     android:id="@+id/save_profile_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="15dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
                     android:src="@drawable/save_edited_info" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -47,9 +47,9 @@
         android:id="@+id/profile_img"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/app_bar_layout_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:src="@drawable/profile" />
 
     <TextView
@@ -70,10 +70,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_image_btn"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="16dp"
-        android:inputType="text"
-        android:hint="Full name" />
+        android:layout_marginEnd="20dp"
+        android:hint="Full name"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/username"
