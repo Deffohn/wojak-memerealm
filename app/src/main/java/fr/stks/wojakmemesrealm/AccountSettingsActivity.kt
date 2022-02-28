@@ -68,12 +68,19 @@ class AccountSettingsActivity : AppCompatActivity() {
         }
 
         binding.saveProfileBtn.setOnClickListener {
-            if (checker == "clicked"){
-
-            }
-            else {
+            if (checker == "clicked")
+                uploadImageAndUpdateInfo()
+            else
                 updateUserInfoOnly()
+        }
+
+        binding.closeProfileBtn.setOnClickListener {
+            if (checker == "clicked"){
+                val intent = Intent(this@AccountSettingsActivity, MainActivity::class.java)
+                startActivity(intent)
             }
+            else
+                finish()
         }
 
         userInfo()
@@ -183,7 +190,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                             userMap["image"] = url
 
                             ref.child(user.uid).updateChildren(userMap)
-                            Toast.makeText(this, "Your account infomations have been updated sucessfully.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Your account informations have been updated sucessfully.", Toast.LENGTH_SHORT).show()
 
                             progressDialog.dismiss()
 
