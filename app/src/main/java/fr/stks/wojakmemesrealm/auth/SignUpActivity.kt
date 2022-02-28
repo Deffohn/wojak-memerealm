@@ -88,6 +88,11 @@ class SignUpActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 Toast.makeText(this, "Your account has been created sucessfully.", Toast.LENGTH_SHORT).show()
 
+                FirebaseDatabase.getInstance().reference
+                    .child("Follow").child(uid)
+                    .child("Following").child(uid)
+                    .setValue(true)
+
                 Intent(this@SignUpActivity, MainActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(this)
