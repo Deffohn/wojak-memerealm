@@ -1,6 +1,7 @@
 package fr.stks.wojakmemesrealm.model
 
 class Post {
+    constructor() {}
 
     private var postid : String = ""
     private var postimage : String = ""
@@ -12,7 +13,6 @@ class Post {
         this.postimage = postimage
         this.publisher = publisher
         this.description = description
-
     }
 
     fun getPostid(): String{
@@ -46,5 +46,4 @@ class Post {
     fun setDescription(description : String){
         this.description = description
     }
-
 }
