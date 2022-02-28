@@ -21,6 +21,7 @@ class AddPostActivity : AppCompatActivity() {
     private var url = ""
     private var imageUri: Uri? = null
     private var storagePostPicRef: StorageReference? = null
+    private var checker = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,15 @@ class AddPostActivity : AppCompatActivity() {
         storagePostPicRef = FirebaseStorage.getInstance().reference.child("Posts Pictures")
 
         binding.saveNewPostBtn.setOnClickListener { uploadImage() }
+
+        binding.closeAddPostBtn.setOnClickListener {
+            if (checker == "clicked"){
+                val intent = Intent(this@AddPostActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
+            else
+                finish()
+        }
 
         CropImage.activity().apply {
             setAspectRatio(2, 1)
