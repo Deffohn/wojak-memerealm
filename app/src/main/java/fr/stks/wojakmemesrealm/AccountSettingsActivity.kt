@@ -9,9 +9,6 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.canhub.cropper.CropImage
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -21,7 +18,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
-import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import fr.stks.wojakmemesrealm.auth.SignInActivity
 import fr.stks.wojakmemesrealm.databinding.ActivityAccountSettingsBinding
@@ -170,39 +166,35 @@ class AccountSettingsActivity : AppCompatActivity() {
 
                 val uploadTask: StorageTask<*>
                 uploadTask = picRef.putFile(imageUri!!)
-                uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
+                uploadTask.continueWithTask { task ->
                     if (!task.isSuccessful) {
-                        task.exception?.let {
-                            progressDialog.dismiss()
-                            throw it
-                        }
+                        progressDialog.dismiss()
+                        throw task.exception!!
                     }
-                    return@Continuation picRef.downloadUrl
-                }).addOnCompleteListener {
-                    OnCompleteListener<Uri> { task ->
-                        if (task.isSuccessful) {
-                            url = task.result.toString()
+                    return@continueWithTask picRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        url = task.result.toString()
 
-                            val ref = FirebaseDatabase.getInstance().reference.child("Users")
+                        val ref = FirebaseDatabase.getInstance().reference.child("Users")
 
-                            val userMap = HashMap<String, Any>()
-                            userMap["fullname"] = binding.fullName.text.toString().lowercase()
-                            userMap["username"] = binding.username.text.toString().lowercase()
-                            userMap["bio"] = binding.bio.text.toString()
-                            userMap["image"] = url
+                        val userMap = HashMap<String, Any>()
+                        userMap["fullname"] = binding.fullName.text.toString().lowercase()
+                        userMap["username"] = binding.username.text.toString().lowercase()
+                        userMap["bio"] = binding.bio.text.toString()
+                        userMap["image"] = url
 
-                            ref.child(user.uid).updateChildren(userMap)
-                            Toast.makeText(this, "Your account informations have been updated sucessfully.", Toast.LENGTH_SHORT).show()
+                        ref.child(user.uid).updateChildren(userMap)
+                        Toast.makeText(this, "Your account informations have been updated sucessfully.", Toast.LENGTH_SHORT).show()
 
-                            progressDialog.dismiss()
+                        progressDialog.dismiss()
 
-                            val intent = Intent(this@AccountSettingsActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                        val intent = Intent(this@AccountSettingsActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
-                        } else {
-                            progressDialog.dismiss()
-                        }
+                    } else {
+                        progressDialog.dismiss()
                     }
                 }
             }
