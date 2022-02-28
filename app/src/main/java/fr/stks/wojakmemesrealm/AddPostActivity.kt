@@ -43,7 +43,7 @@ class AddPostActivity : AppCompatActivity() {
         }
 
         CropImage.activity().apply {
-            setAspectRatio(2, 1)
+            setAspectRatio(1, 1)
             start(this@AddPostActivity)
         }
     }
